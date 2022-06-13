@@ -1,0 +1,113 @@
+.maxmind-data {
+    float:left;
+    width:100%;
+    &.outer-wrapper {
+        > .view-order-maxmind {
+            border: none;
+            > .section-title {
+                margin-bottom: 15px;
+                font-weight: 600;
+                font-size: 20px;
+                &:after {
+                    top: 1.1rem !important;
+                }
+            }
+        }
+    }
+    .view-order-maxmind {
+        float:left;
+        width: 49%;
+        box-sizing: border-box;
+        border:1px solid #DDD;
+        &.collapsing {
+            float: left;
+            margin-right: 1%;
+            .section-title:after {
+                content: '\e62b';
+                font-size: 1.3rem;
+                font-weight: 700;
+                position: absolute;
+                right: 1.8rem;
+                top: 0.7rem;
+                font-family: 'Admin Icons';
+            }
+            &.active {
+                .section-title:after {
+                    content: '\e628';
+                }
+            }
+        }
+        table td, table th {
+            padding:6px;
+            background: none;
+            &.message {
+                padding-left: 25px;
+                &:before {
+                    left: 0;
+                }
+            }
+        }
+        .section-title {
+            background-color: #E4E4E4;
+            float: left;
+            width: 100%;
+            padding: 6px;
+            position: relative;
+        }
+        .admin_content {
+            float: left;
+            width: 100%;
+            padding: 6px;
+            background: #F8F8F8 none repeat scroll 0 0;
+        }
+        &.view-order-maxmind-full {
+            width: 100%;
+        }
+        .input-shopping-cart {
+            width: 99%;
+            text-align: left;
+        }
+    }
+}
+
+#chargeback-modal {
+    display:none;
+}
+.chargeback-info {
+    color: #FF0000;
+    font-weight: bold;
+}
+.chargeback-popup-modal {
+    .modal-inner-wrap {
+        max-width: 700px;
+        .action-close {
+            padding: 2.1rem 2.6rem;
+        }
+        .chargebackWrapper {
+            .fieldset {
+                border: none;
+                padding: 15px 10px;
+                .field {
+                    .label {
+                        font-size: 16px;
+                        font-weight: bold;
+                        margin-bottom: 5px;
+                        display: block;
+                    }
+                    .comment {
+                        margin-bottom: 20px;
+                    }
+                }
+                .actions-toolbar {
+                    .button {
+                        float: left;
+                        margin: 0 5px;
+                        &:first-of-type {
+                            margin-left: 0px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

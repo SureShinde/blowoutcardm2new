@@ -1,0 +1,15 @@
+<script type="text/javascript">
+require(['jquery', 'jquery/ui'], function($){
+  jQuery(document).ready( function() {
+    var existCondition = setInterval(function() {
+        if ($('#twitter-widget-0').length) {
+            window.setTimeout(function(){
+                $(".twitter-timeline").contents().find(".timeline-Header").css("display","none");
+                clearInterval(existCondition);
+            }, 10000);
+           $(".twitter-timeline").contents().find(".timeline-Header").css("display","none");
+        }
+    }, 100);
+  });
+});
+</script>

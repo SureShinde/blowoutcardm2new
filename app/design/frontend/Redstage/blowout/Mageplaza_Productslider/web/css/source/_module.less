@@ -1,0 +1,145 @@
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_Productslider
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+ & when (@media-common = true) {
+  .block-content.mp-product-slider-content {
+    margin-bottom: 30px;
+  }
+  .mp-product-slider-content .owl-nav{
+      font-size: 0;
+    .owl-prev,
+    .owl-next{
+      background: none;
+      span{
+        background-image: url(../images/arrow.svg);
+        background-repeat: no-repeat;
+        background-size: 30px;
+        font-size: 0;
+        display: inline-block;
+        width: 30px;
+        height: 35px;
+        }
+      }
+      .owl-prev{
+        position: absolute;
+        top: -15px;
+        right: 35px;
+        z-index: 999;
+        text-shadow: none;
+        background: none;
+        border: none;
+        span{
+          transform: rotateY(-180deg);
+          -webkit-transform: rotateY(-180deg);
+          -o-transform: rotateY(-180deg);
+          -ms-transform: rotateY(-180deg);
+        }
+      }
+    .owl-next{
+      position: absolute;
+      top: -15px;
+      right: 0;
+      z-index: 999;
+      text-shadow: none;
+      background: none;
+      border: none;
+    }
+  }
+  
+  .owl-item li.product-slider {
+    width: 100% !important;
+  }
+
+  .mp-product-slider-title {
+    font-size: 35px;
+    font-family: 'Francois';
+    position: relative;
+    z-index: 1;
+    margin: 0 0 15px;
+    text-align: left;
+    display: block;
+    -webkit-margin-before: 0.83em;
+    -webkit-margin-after: 0.83em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+  }
+
+  .mp-product-slider-block {
+    margin: 0 !important;
+  }
+
+  .mp-ps-info {
+    font-size: 1.8rem;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+
+  }
+  .products-grid{
+    .product-item-name{
+      min-height: 35px; 
+    }
+    .product-item-name, 
+    .product.name a {
+      font-weight: 600;
+    }
+    .product-item{
+      .price-box{
+        .price-label{
+          display: none;
+        }
+        .price{
+          color: #860715;
+        }
+      } 
+      .old-price .price{
+        text-decoration: line-through;
+        color: #666;
+      }
+    } 
+  }
+
+  .slider-product-item-actions {
+    margin: 0px;
+  }
+
+  .product.details.slider-product-item-details {
+    margin-left: 10px
+  }
+
+  .mp-ps-info {
+    color: #bbbbbb;
+    margin: -15px 0px 10px 0px;
+  }
+  .mp-product-slider-block .owl-carousel .owl-nav button.owl-prev,
+  .mp-product-slider-block .owl-carousel .owl-nav button.owl-next {
+    font-size: 20px;
+  }
+}
+
+
+
+
+
+

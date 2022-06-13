@@ -1,0 +1,22 @@
+<?php
+/** @var \WeltPixel\Maxmind\Helper\Data $_helper */
+$_helper = $this->helper('\WeltPixel\Maxmind\Helper\Data');
+$isTrackingEnabled = $this->isTrackingEnabled();
+?>
+<?php if ($isTrackingEnabled) : ?>
+<script type="text/javascript">
+    maxmind_user_id = "<?= $_helper->getAccountId() ?>";
+    (function() {
+        var loadDeviceJs = function() {
+            var element = document.createElement('script');
+            element.src = 'https://device.maxmind.com/js/device.js';
+            document.body.appendChild(element);
+        };
+        if (window.addEventListener) {
+            window.addEventListener('load', loadDeviceJs, false);
+        } else if (window.attachEvent) {
+            window.attachEvent('onload', loadDeviceJs);
+        }
+    })();
+</script>
+<?php endif; ?>

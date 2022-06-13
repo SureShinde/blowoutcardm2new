@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="2columns-right" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<body>    
+    <referenceBlock name="product.info.media.image" template="Magento_Catalog::product/view/gallery.phtml">
+        <arguments>
+           <argument name="viewModel" xsi:type="object">Redstage\ProductBadges\ViewModel\ProductInfo</argument>
+        </arguments>
+    </referenceBlock>
+
+    <referenceContainer name="product.info.main">
+        <block class="Magento\Catalog\Block\Product\View\Description" name="product.info.release.message" before="product.price.tier"
+               template="Redstage_ProductBadges::releasedate.phtml" />
+    </referenceContainer>
+
+    <referenceBlock name="product.info.release.message" template="Redstage_ProductBadges::releasedate.phtml">
+        <arguments>
+           <argument name="viewModel" xsi:type="object">Redstage\ProductBadges\ViewModel\ProductInfo</argument>
+        </arguments>
+    </referenceBlock>
+</body>
+</page>

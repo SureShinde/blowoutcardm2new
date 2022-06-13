@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magefan (support@magefan.com). All rights reserved.
+ * Please visit Magefan.com for license details (https://magefan.com/end-user-license-agreement).
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+    	<add id="Magefan_DynamicCategory::elements" title="Dynamic Category" module="Magefan_DynamicCategory" parent="Magento_Catalog::catalog" sortOrder="30"  resource="Magefan_DynamicCategory::elements"/>
+        <add id="Magefan_DynamicCategory::rule" title=" Rules" module="Magefan_DynamicCategory" parent="Magefan_DynamicCategory::elements" sortOrder="10" action="mfdynamiccategory/rule/" resource="Magefan_DynamicCategory::rule"/>
+        <add id="Magefan_DynamicCategory::configuration" title="Configuration" module="Magefan_DynamicCategory" parent="Magefan_DynamicCategory::elements" sortOrder="20" action="adminhtml/system_config/edit/section/mfdynamiccategory" resource="Magefan_DynamicCategory::mfdynamiccategory"/>
+    </menu>
+</config>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="logo">
+            <arguments>
+                <argument name="logo_img_width" xsi:type="number">90</argument>
+                <argument name="logo_img_height" xsi:type="number">90</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="footer_links" remove="true" />	 
+        <referenceContainer name="footer">
+		    <block class="Magento\Framework\View\Element\Template" name="footer_custom_links" template="Magento_Theme::html/custom-footer.phtml" />
+		</referenceContainer>
+        <referenceContainer name="footer" htmlClass="footer content row" />
+        <referenceBlock name="header.links">
+            <block class="Magento\Framework\View\Element\Html\Link" name="help-header-link">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">Help</argument>
+                    <argument name="path" xsi:type="string">help</argument>
+                    <argument name="class" xsi:type="string">top-help</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <move element="help-header-link" destination="header.links" after="my-account-link" />
+    </body>
+</page>
+

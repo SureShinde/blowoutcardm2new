@@ -1,0 +1,18 @@
+{
+    "name": "magefan/module-dynamic-category",
+    "description": "Dynamic Category extension for Magento 2",
+    "require": {
+        "magefan/module-community" : ">=2.0.14"
+    },
+    "type": "magento2-module",
+    "license": "EULA",
+    "version": "2.0.8",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Magefan\\DynamicCategory\\": ""
+        }
+    }
+}

@@ -1,0 +1,596 @@
+<?php
+/* @var WeltPixel\Maxmind\Block\Adminhtml\Order\View\Tab\Maxmind $block */
+
+$maxmindData = $block->getMaxmindData();
+$scoreThreshold = $block->getScoreThreshold();
+$maxmindIpAddressData = [];
+$chargebacKFlag = ($this->getChargeBackFlag()) ? '' : 'hidden';
+
+$sentData = $block->getSentData();
+$sentBillingData = [];
+$sentShippingData = [];
+$sentOrderData = [];
+$sentShoppingCartData = [];
+$sentEmailData = [];
+$sentEventData = [];
+$sentDeviceData = [];
+if (isset($sentData['billing'])) {
+    $sentBillingData = $sentData['billing'];
+}
+if (isset($sentData['shipping'])) {
+    $sentShippingData = $sentData['shipping'];
+}
+if (isset($sentData['order'])) {
+    $sentOrderData = $sentData['order'];
+}
+if (isset($sentData['shopping_cart'])) {
+    $sentShoppingCartData = $sentData['shopping_cart'];
+}
+if (isset($sentData['email'])) {
+    $sentEmailData = $sentData['email'];
+}
+if (isset($sentData['event'])) {
+    $sentEventData = $sentData['event'];
+}
+if (isset($sentData['device'])) {
+    $sentDeviceData = $sentData['device'];
+}
+
+if (isset($maxmindData['ip_address'])) {
+    $maxmindIpAddressData = $maxmindData['ip_address'];
+}
+
+/* @escapeNotVerified */
+$warningMessages = "";
+if (isset($maxmindData['warnings']) && !empty($maxmindData['warnings'])) {
+    $warningLabels = [];
+    foreach ($maxmindData['warnings'] as $warnings) {
+        $warningLabels[] = $warnings['warning'];
+    }
+    $warningMessages = implode("<br/><br/>", $warningLabels);
+}
+?>
+
+<div class="edit-order-comments-block">
+    <div class="edit-order-comments-block-title">
+        <?php /* @escapeNotVerified */
+        echo __('MaxMind Fraud Report Data') ?>
+    </div>
+</div>
+
+<div class="maxmind-data">
+    <section class="admin__page-section view-order-maxmind" style="float:left;">
+        <div class="section-title"><?php /* @escapeNotVerified */
+            echo __('Risk Score'); ?></div>
+        <div class="admin_content">
+            <?php
+            $fraudScore = $block->getFraudScore();
+            $color = $block->getColor();
+            $percent = $block->getPercent();
+            ?>
+            <div>
+                <div>
+                    <span><?php /* @escapeNotVerified */
+                        echo __('Risk Score Estimate'); ?></span>
+                    <span>
+                        <?php if ($fraudScore && !empty($fraudScore)) {
+                            ?>
+                            <span>
+                                <strong style="color: <?php echo $color; ?>">
+                                    <?php /* @escapeNotVerified */
+                                    echo $fraudScore; ?>% </strong> <strong><?php /* @escapeNotVerified */
+                                    echo __('(Approximately %1 of all orders fall in this range)', $percent); ?>
+                                </strong>
+                            </span>
+                            <?php
+                        } else {
+                            ?>
+                            <span>-</span>
+                            <?php
+                        } ?>
+                    </span>
+                </div>
+                <div>
+                    <?php echo __('The riskScore is given as a percentage, and as such it ranges from 0.01 to 100.00. For example,
+                    an order with a riskScore of 20.00 has a 20% chance of being fraudulent, while an order with a
+                    riskScore of 0.10 has a 0.1% chance of being fraudulent. To change threshold estimate ');
+                    ?>
+                    <a href="<?php echo $this->getUrl("adminhtml/system_config/edit/section/weltpixel_maxmind_config"); ?>"
+                       target="_blank"><?php echo __('click here'); ?></a>
+                    <br/>
+                    <?php if ($this->isChargeBackEnabled()) : ?>
+                        <?php echo __("To report current order as Chargeback click the") ?>
+                        <a href="#" id="report_chargeback"><?php echo __('Report Chargeback'); ?></a>
+                        <span class="chargeback-info <?php echo $chargebacKFlag ?>">(<?php echo __('Already Sent') ?>)</span>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="admin__page-section view-order-maxmind" style="float:right;">
+        <div class="section-title"><?php /* @escapeNotVerified */
+            echo __('MaxMind Account Information'); ?></div>
+        <div class="admin_content">
+            <table cellspacing="0" class="form-list">
+                <tbody>
+                <tr>
+                    <td class="label">
+                        <label>
+                            <?php /* @escapeNotVerified */
+                            echo __('Request Type'); ?>
+                        </label>
+                    </td>
+                    <td>
+                        <strong><?php /* @escapeNotVerified */
+                            echo __('Score') ?></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label>
+                            <?php /* @escapeNotVerified */
+                            echo __('minFraud Id'); ?>
+                        </label>
+                    </td>
+                    <td>
+                        <strong><?php /* @escapeNotVerified */
+                            echo $maxmindData['id'] ?></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label>
+                            <?php /* @escapeNotVerified */
+                            echo __('Credit Remaining (relative to this order)'); ?>
+                        </label>
+                    </td>
+                    <td>
+                        <strong><?php echo $this->getDisplayValue($maxmindData, 'queries_remaining'); ?></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label>
+                            <?php /* @escapeNotVerified */
+                            echo __('Funds Remaining (relative to this order)'); ?>
+                        </label>
+                    </td>
+                    <td>
+                        <strong><?php echo $this->getDisplayValue($maxmindData, 'funds_remaining'); ?></strong>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+<?php if (!empty($warningMessages)) : ?>
+    <div class="maxmind-data">
+        <section class="admin__page-section view-order-maxmind view-order-maxmind-full" style="float:left;">
+            <div class="section-title"><?php /* @escapeNotVerified */
+                echo __('Response Warnings'); ?></div>
+            <div class="admin_content">
+                <table cellspacing="0" class="form-list">
+                    <tbody>
+                    <tr>
+                        <td class="label">
+                            <label><?php /* @escapeNotVerified */
+                                echo __('Warning Message(s)'); ?></label>
+                        </td>
+                        <td>
+                            <?php echo "<strong>" . $warningMessages . "</strong>"; ?>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+<?php endif; ?>
+
+
+<div class="maxmind-data outer-wrapper">
+    <section class="admin__page-section view-order-maxmind view-order-maxmind-full collapsing" data-mage-init='{
+    "collapsible":{
+        "collapsible": true,
+        "openedState": "active",
+        "active": true
+    }}'>
+        <div data-role="title" class="section-title"><?php /* @escapeNotVerified */
+            echo __('minFraud Score Outputs'); ?></div>
+        <div data-role="content" class="admin_content">
+            <div class="maxmind-data">
+                <section class="admin__page-section view-order-maxmind collapsing" data-mage-init='{
+    "collapsible":{
+        "collapsible": true,
+        "openedState": "active",
+        "active": true
+    }}'>
+                    <div data-role="title" class="section-title"><?php /* @escapeNotVerified */
+                        echo __('IP Address Checks'); ?></div>
+                    <div data-role="content" class="admin_content">
+                        <table class="maxmind-table ip-check">
+                            <tbody>
+                            <tr>
+                                <td class="label">
+                                    <label><?php /* @escapeNotVerified */
+                                        echo __('IP Risk Score'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($maxmindIpAddressData, 'risk'); ?></strong>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<div class="maxmind-data outer-wrapper">
+    <section class="admin__page-section view-order-maxmind view-order-maxmind-full collapsing" data-mage-init='{
+    "collapsible":{
+        "collapsible": true,
+        "openedState": "active",
+        "active": true
+    }}'>
+        <div data-role="title" class="section-title"><?php /* @escapeNotVerified */
+            echo __('minFraud Inputs'); ?></div>
+        <div data-role="content" class="admin_content">
+            <div class="maxmind-data">
+                <section class="admin__page-section view-order-maxmind collapsing" data-mage-init='{
+    "collapsible":{
+        "collapsible": true,
+        "openedState": "active",
+        "active": true
+    }}'>
+                    <div data-role="title" class="section-title"><?php /* @escapeNotVerified */
+                        echo __('Billing'); ?></div>
+                    <div data-role="content" class="admin_content">
+                        <table class="maxmind-table input-billing">
+                            <tbody>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('Name'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentBillingData, 'first_name') . ' ' . $this->getDisplayValue($sentBillingData, 'last_name'); ?></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('Company'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentBillingData, 'company'); ?></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('Address 1'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentBillingData, 'address'); ?></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('Address 2'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentBillingData, 'address_2'); ?></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('City'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentBillingData, 'city'); ?></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('State/region'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentBillingData, 'region'); ?></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('Postal code'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentBillingData, 'postal'); ?></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('Country'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentBillingData, 'country'); ?></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('Phone'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentBillingData, 'phone_number'); ?></strong>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section class="admin__page-section view-order-maxmind collapsing" data-mage-init='{
+    "collapsible":{
+        "collapsible": true,
+        "openedState": "active",
+        "active": true
+    }}'>
+                    <div data-role="title" class="section-title"><?php /* @escapeNotVerified */
+                        echo __('Shipping'); ?></div>
+                    <div data-role="content" class="admin_content">
+                        <table class="maxmind-table input-shipping">
+                            <tbody>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('Name'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentShippingData, 'first_name') . ' ' . $this->getDisplayValue($sentShippingData, 'last_name'); ?></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('Company'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentBillingData, 'company'); ?></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('Address 1'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentShippingData, 'address'); ?></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('Address 2'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentShippingData, 'address_2'); ?></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('City'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentShippingData, 'city'); ?></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('State/region'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentShippingData, 'region'); ?></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('Postal code'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentShippingData, 'postal'); ?></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('Country'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentShippingData, 'country'); ?></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('Phone'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentShippingData, 'phone_number'); ?></strong>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section class="admin__page-section view-order-maxmind collapsing" data-mage-init='{
+    "collapsible":{
+        "collapsible": true,
+        "openedState": "active",
+        "active": true
+    }}'>
+                    <div data-role="title" class="section-title"><?php /* @escapeNotVerified */
+                        echo __('Order'); ?></div>
+                    <div data-role="content" class="admin_content">
+                        <table class="maxmind-table input-order">
+                            <tbody>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('Amount'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentOrderData, 'amount'); ?></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('Currency'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentOrderData, 'currency'); ?></strong>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section class="admin__page-section view-order-maxmind view-order-maxmind-full collapsing"
+                         data-mage-init='{
+    "collapsible":{
+        "collapsible": true,
+        "openedState": "active",
+        "active": true
+    }}'>
+                    <div data-role="title" class="section-title"><?php /* @escapeNotVerified */
+                        echo __('Shopping cart'); ?></div>
+                    <div data-role="content" class="admin_content">
+                        <table class="maxmind-table input-shopping-cart">
+                            <tbody>
+                            <tr>
+                                <th><?php echo __('Item ID'); ?></th>
+                                <th><?php echo __('Category'); ?></th>
+                                <th><?php echo __('Price'); ?></th>
+                                <th><?php echo __('Quantity'); ?></th>
+                            </tr>
+                            <?php foreach ($sentShoppingCartData as $shCartItem) : ?>
+                                <tr>
+                                    <td><?php echo $this->getDisplayValue($shCartItem, 'item_id'); ?></td>
+                                    <td><?php echo $this->getDisplayValue($shCartItem, 'category'); ?></td>
+                                    <td>
+                                        <?php echo $this->getDisplayValue($shCartItem, 'price'); ?>
+                                        <?php echo $this->getDisplayValue($sentOrderData, 'currency'); ?>
+                                    </td>
+                                    <td><?php echo $this->getDisplayValue($shCartItem, 'quantity'); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section class="admin__page-section view-order-maxmind collapsing" data-mage-init='{
+    "collapsible":{
+        "collapsible": true,
+        "openedState": "active",
+        "active": true
+    }}'>
+                    <div data-role="title" class="section-title"><?php /* @escapeNotVerified */
+                        echo __('Customer account'); ?></div>
+                    <div data-role="content" class="admin_content">
+                        <table class="maxmind-table input-customer-account">
+                            <tbody>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('Email address'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentEmailData, 'address'); ?></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('Domain'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentEmailData, 'domain'); ?></strong>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section class="admin__page-section view-order-maxmind collapsing" data-mage-init='{
+    "collapsible":{
+        "collapsible": true,
+        "openedState": "active",
+        "active": true
+    }}'>
+                    <div data-role="title" class="section-title"><?php /* @escapeNotVerified */
+                        echo __('Event'); ?></div>
+                    <div data-role="content" class="admin_content">
+                        <table class="maxmind-table input-event">
+                            <tbody>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('Merchant transaction ID'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentEventData, 'transaction_id'); ?></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('Timestamp'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentEventData, 'time'); ?></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('Transaction type'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentEventData, 'type'); ?></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('Session ID'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentDeviceData, 'session_id'); ?></strong>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <section class="admin__page-section view-order-maxmind collapsing" data-mage-init='{
+    "collapsible":{
+        "collapsible": true,
+        "openedState": "active",
+        "active": true
+    }}'>
+                    <div data-role="title" class="section-title"><?php /* @escapeNotVerified */
+                        echo __('Transaction Linking'); ?></div>
+                    <div data-role="content" class="admin_content">
+                        <table class="maxmind-table input-transaction-linking">
+                            <tbody>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('User-agent HTTP header'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentDeviceData, 'user_agent'); ?></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <label><?php echo __('Accept-language header	'); ?></label>
+                                </td>
+                                <td>
+                                    <strong><?php echo $this->getDisplayValue($sentDeviceData, 'accept_language'); ?></strong>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,36 @@
+
+   <script>
+    require(['jquery','jquery/ui'], function ($) {
+    $(document).ready(function () {
+    
+            $("#nanoGalleryMLN").nanoGallery({
+              kind:'flickr',
+              userID:'149402343@N06',
+              photoset: '72157679564036874',
+              thumbnailGutterWidth: 1,
+              thumbnailGutterHeight: 1,
+              thumbnailWidth: 110,
+              thumbnailHeight:110,  //110,
+              thumbnailHoverEffect:'imageScaleIn80',
+              thumbnailLabel:{display:false,},
+              paginationMaxLinesPerPage: 2,
+              paginationVisiblePages: 2,
+              paginationDots: true,
+              photoSorting: 'random18',
+              colorScheme: 'light',
+              thumbnailLazyLoad:true,
+              locationHash: false,
+              colorSchemeViewer: 'dark',
+              paginationVisiblePages: 1,
+              viewerToolbar:{ standard:  'minimizeButton, previousButton, pageCounter, nextButton, fullscreenButton, closeButton'},
+              level1: { thumbnailWidth: 200, thumbnailHeight: 120 },
+              // hover effects
+              thumbnailHoverEffect2: 'label_font-size_1em_1.5em|title_backgroundColor_rgba(255,255,255,0.34)_rgba(((84,132,12,0.8)|title_color_#000_#fff|image_scale_1.00_1.10_5000|image_rotateZ_0deg_4deg_5000',
+
+
+            });  
+        });
+  });
+    </script>
+
+    <div id="nanoGalleryMLN"></div>

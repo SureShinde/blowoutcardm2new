@@ -1,0 +1,27 @@
+<?php
+   /**
+   * Custom Footer Links
+   *
+   */
+?>
+<div class="footer-middle col-lg-9">
+   <?php
+      echo $this->getLayout()
+      ->createBlock('Magento\Cms\Block\Block')
+      ->setBlockId('footer-menu')
+      ->toHtml();
+   ?>
+</div>
+
+<script>
+    require([
+      'jquery'
+      ], function ($) {
+      $(document).ready(function(){
+         $("body").on("click", ".footer .block-title" , function(){
+            $(this).toggleClass("active");
+            $(this).siblings(".block-content").toggleClass("open");
+         });
+      });
+   });
+</script>

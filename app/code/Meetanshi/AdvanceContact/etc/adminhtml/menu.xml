@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Meetanshi_AdvanceContact::meetanshi_advancecontact"
+             title="Custom Contact Form"
+             module="Meetanshi_AdvanceContact"
+             parent="Magento_Backend::content"
+             sortOrder="40"
+             resource="Meetanshi_AdvanceContact::meetanshi_advancecontact"/>
+        <add id="Meetanshi_AdvanceContact::advance_contact"
+             title="Manage Contact Departments"
+             translate="title"
+             module="Meetanshi_AdvanceContact"
+             sortOrder="10"
+             action="advance_contact/department/index"
+             resource="Meetanshi_AdvanceContact::advance_contact"
+             parent="Meetanshi_AdvanceContact::meetanshi_advancecontact"/>
+        <add id="Meetanshi_AdvanceContact::advance_contacts_list"
+             title="Manage Contact Inquiries"
+             translate="title"
+             module="Meetanshi_AdvanceContact"
+             sortOrder="20"
+             action="advance_contact/department/contacts"
+             resource="Meetanshi_AdvanceContact::advance_contacts_list"
+             parent="Meetanshi_AdvanceContact::meetanshi_advancecontact"/>
+        <add id="Meetanshi_AdvanceContact::advance_contact_configuration"
+             title="Configuration" module="Meetanshi_AdvanceContact"
+             sortOrder="30"
+             parent="Meetanshi_AdvanceContact::meetanshi_advancecontact"
+             action="adminhtml/system_config/edit/section/advance_contact"
+             resource="Meetanshi_AdvanceContact::advance_contact_configuration"/>
+    </menu>
+</config>

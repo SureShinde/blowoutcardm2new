@@ -1,0 +1,19 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<div class="copyright">
+    <div class="copyright-wrapper">
+        <small class="copyright-text">
+            <span><?= /* @escapeNotVerified */ $block->getCopyright() ?></span>
+        </small>
+        <?php
+            echo $this->getLayout()
+            ->createBlock('Magento\Cms\Block\Block')
+            ->setBlockId('footer_copyright_links')
+            ->toHtml();
+        ?> 
+    </div>
+</div>

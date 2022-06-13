@@ -1,0 +1,101 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    a.quick-link-title {
+        display: block;
+        img{
+            width: 100%;
+        }
+    }
+    .block-wrapper a{
+        background: #860715;
+        color: #fff;
+        padding: 10px;
+        line-height: 40px;
+        text-transform: uppercase;
+        font-family: 'Francois';
+        font-size: 23px;
+        text-decoration: none;
+        display: block;
+        position:relative;
+    }
+    img.quick-link-img {
+        max-width: 58px;
+        position: absolute;
+        left: 11px;
+        top: 1px;
+    }
+    .section-title{
+        font-size: 35px;
+        margin-bottom: 15px;
+        color: #000;
+        font-family: 'Francois';
+    }
+    ul.conquests-list{
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        li {
+            display: inline-block;
+            margin: 5px;
+            img {
+                max-width: 122px;
+                max-height: 122px;
+            }
+        }
+    } 
+    .collection-wrapper{
+        padding: 15px;
+        ul.protect-collection-link{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            width: 50%;
+            float: left;
+            li a {
+                color: @blowout_red;
+            }
+        }
+    } 
+    a.fresh-title {
+        margin: 0; 
+        text-transform: capitalize;
+        font-size: 24px;
+        color: #0E799D ;
+        font-family: 'Francois';
+        &:hover{
+            text-decoration : underline;
+        }
+    }
+    .forum-wrapper{
+        .post-item {
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #545454;
+        }
+    } 
+}
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+
+   
+    
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    
+
+}

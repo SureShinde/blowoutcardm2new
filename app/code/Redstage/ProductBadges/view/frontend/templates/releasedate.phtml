@@ -1,0 +1,14 @@
+<?php 
+	$viewModel = $block->getData('viewModel'); 
+?>
+<style type="text/css">
+	.release-date-message{
+		color: red;
+		font-weight: bold;
+	}
+
+</style>
+
+<?php if($viewModel->checkPreOrder()){ ?>
+	<div class="release-date-message">This Product Is Scheduled To Release On <?php echo $viewModel->getReleasedate(); ?></div>
+<?php } ?>

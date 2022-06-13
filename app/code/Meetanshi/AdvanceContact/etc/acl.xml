@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::content">
+                    <resource id="Meetanshi_AdvanceContact::meetanshi_advancecontact" title="Contact Department">
+                        <resource id="Meetanshi_AdvanceContact::advance_contact" title="Departments"/>
+                        <resource id="Meetanshi_AdvanceContact::advance_contacts_list" title="Contacts"/>
+                        <resource id="Meetanshi_AdvanceContact::advance_contact_configuration" title="Configuration"/>
+                    </resource>
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Meetanshi_AdvanceContact::configuration" title="Advance Contact"/>
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

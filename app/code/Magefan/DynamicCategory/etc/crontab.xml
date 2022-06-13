@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Copyright © Magefan (support@magefan.com). All rights reserved.
+ * Please visit Magefan.com for license details (https://magefan.com/end-user-license-agreement).
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="magefan_dynamic_category">
+        <job instance="Magefan\DynamicCategory\Cron\DynamicCategory" method="execute" name="magefan_dynamic_category_cron_dynamic_category">
+            <schedule>35 1 * * *</schedule>
+        </job>
+        <job instance="Magefan\DynamicCategory\Cron\ProductAttributeUpdateCron" method="execute" name="magefan_dynamic_category_cron_product_review_attribute">
+            <schedule>5 * * * *</schedule>
+        </job>
+    </group>
+</config>

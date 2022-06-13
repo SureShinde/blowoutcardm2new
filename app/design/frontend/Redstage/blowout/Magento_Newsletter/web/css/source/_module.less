@@ -1,0 +1,125 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .newsletter-content{
+        .block-content{
+            line-height: 30px;
+        }
+    }
+    //  Newsletter subscription
+    .block.newsletter {
+       
+        .form.subscribe {
+            display: table;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .fieldset {
+            display: table-cell;
+            margin: 0;
+            padding: 0;
+            vertical-align: top;
+        }
+
+        .field {
+            margin: 0;
+
+            .control {
+                .lib-icon-font(
+                @icon-envelope,
+                @_icon-font-size: 16px,
+                @_icon-font-line-height: 32px,
+                @_icon-font-color: @form-element-input-placeholder__color,
+                @_icon-font-margin: 0 0 0 8px
+                );
+
+                &:before {
+                    position: absolute;
+                }
+
+                display: block;
+            }
+        }
+
+        input {
+            padding: 0 0 0 35px; // Reset some default Safari padding values.
+            border-color: #222;
+        }
+
+        .title {
+            display: none;
+        }
+
+        .label {
+            &:extend(.abs-visually-hidden all);
+        }
+
+        .actions {
+            display: table-cell;
+            vertical-align: top;
+            width: 1%;
+        }
+
+        .action.subscribe {
+            margin-left: -1px;
+            white-space: nowrap;
+            background: #fff;
+            color: #222;
+            border: 2px solid #222;
+            padding: 6px;
+            font-size: 12px;
+            font-weight: 900;
+            border-radius: 0;
+        }
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .block.newsletter {
+        width: max-content;
+
+        .field.newsletter {
+            max-width: 220px;
+        }
+        
+        .form.subscribe {
+            > .field,
+            > .actions {
+                float: left;
+            }
+        }
+    }
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .block {
+        &.newsletter {
+            input {
+                font-size: 12px;
+                padding-left: 30px;
+            }
+
+            .field {
+                .control:before {
+                    font-size: 13px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product.info.sku" remove="true" />
+        <move element="product.info.overview" destination="product.info.main" before="product.info" />
+        
+        <referenceContainer name="product.info.main">
+           <block class="Magento\Cms\Block\Block" name="ProductPageServiceLabels">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">service_labels_products</argument>
+                </arguments>
+        </block>
+        </referenceContainer>
+    </body>
+</page>

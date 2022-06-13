@@ -1,0 +1,58 @@
+<?php
+/* @var WeltPixel\Maxmind\Block\Adminhtml\Order\View\Maxmindgrid $block */
+
+$fraudScore      = $block->getMaxmindFraudScore();
+$scoreThreshold  = $block->getScoreThreshold();
+$remainingCredit = $block->getRemainingCredit();
+
+$color = $scoreThreshold && $fraudScore && ($fraudScore >= $scoreThreshold) ? 'red' : 'auto';
+
+$percentage = "N/A";
+if ($fraudScore && $fraudScore >=0) {
+    if ($fraudScore >= 0.1 && $fraudScore <=4.99) {
+        $percentage = "90%";
+    } elseif ($fraudScore >= 5 && $fraudScore <=9.99) {
+        $percentage =  "5%";
+    } elseif ($fraudScore >= 10 && $fraudScore <=29.99) {
+        $percentage =  "3%";
+    } elseif ($fraudScore >= 30 && $fraudScore <=99.99) {
+        $percentage =  "2%";
+    } else {
+        $percentage = "N/A";
+    }
+}
+?>
+
+<br /><br />
+
+<div class="maxmind-data-view" style="float:left; width:100%;">
+    <section class="admin__page-section view-order-maxmind" style="float:left;">
+        <div class="admin__page-section-title">
+            <span class="title"><?php /* @escapeNotVerified */ echo __('MaxMind Fraud Detection'); ?></span>
+        </div>
+        <div class="admin_content" style="float: left; width: 100%; padding: 6px; background: #F8F8F8 none repeat scroll 0 0;">
+            <span>
+                <?php /* @escapeNotVerified */ echo __('Risk Score Estimate:'); ?>
+                <span>
+                    <?php if ($fraudScore) { ?>
+                        <strong style="color: <?php echo $color; ?>">
+                            <?php /* @escapeNotVerified */
+                            echo $fraudScore; ?>% </strong> <strong><?php /* @escapeNotVerified */
+                            echo __('(Approximately %1 of all orders fall in this range)', $percentage);
+                            ?></strong>
+                    <?php } else { ?>
+                        <strong><?php /* @escapeNotVerified */ echo __('N/A'); ?></strong>
+                    <?php } ?>
+                </span>
+            </span>
+            <br /><br />
+            <p><?php /* @escapeNotVerified */ echo __('MaxMind Credit Remaining:'); ?>
+                <?php /* @escapeNotVerified */ echo $remainingCredit; ?></p>
+            <p>
+                <a href="http://www.maxmind.com" target="_blank">
+                    <?php /* @escapeNotVerified */ echo __('Purchase Additional Credit'); ?>
+                </a>
+            </p>
+        </div>
+    </section>
+</div>

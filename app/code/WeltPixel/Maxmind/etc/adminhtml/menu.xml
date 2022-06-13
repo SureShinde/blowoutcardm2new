@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="WeltPixel_Maxmind::maxmind" title="Maxmind" module="WeltPixel_Maxmind" sortOrder="100" parent="WeltPixel_Backend::WeltPixel" resource="WeltPixel_Maxmind::widgetblockextra_settings"/>
+        <add id="WeltPixel_Maxmind::maxmind_settings" title="Maxmind Configuration" module="WeltPixel_Maxmind" action="adminhtml/system_config/edit/section/weltpixel_maxmind_config/" sortOrder="10" parent="WeltPixel_Maxmind::maxmind" resource="WeltPixel_Maxmind::maxmind_settings_menu"/>
+    </menu>
+</config>

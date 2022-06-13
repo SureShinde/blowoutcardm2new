@@ -1,0 +1,394 @@
+<?php
+/* @var WeltPixel\Maxmind\Block\Adminhtml\Order\View\Tab\Maxmind $block */
+
+$maxmindData = $block->getMaxmindData();
+$scoreThreshold = $block->getScoreThreshold();
+$chargebacKFlag = ($this->getChargeBackFlag()) ? '' : 'hidden';
+?>
+
+<div class="edit-order-comments-block">
+    <div class="edit-order-comments-block-title">
+        <?php /* @escapeNotVerified */
+        echo __('MaxMind Fraud Report Data') ?>
+    </div>
+</div>
+
+<div class="maxmind-data">
+    <section class="admin__page-section view-order-maxmind" style="float:left;">
+        <div class="section-title"><?php /* @escapeNotVerified */
+            echo __('Risk Score'); ?></div>
+        <div class="admin_content">
+            <?php
+            $fraudScore = $block->getFraudScore();
+            $color = $block->getColor();
+            $percent = $block->getPercent();
+            ?>
+            <div>
+                <div>
+                    <span><?php /* @escapeNotVerified */
+                        echo __('Risk Score Estimate'); ?></span>
+                    <span>
+                        <?php if ($fraudScore && !empty($fraudScore)) {
+                            ?>
+                            <span>
+                                <strong style="color: <?php echo $color; ?>">
+                                    <?php /* @escapeNotVerified */
+                                    echo $fraudScore; ?>% </strong> <strong><?php /* @escapeNotVerified */
+                                    echo __('(Approximately %1 of all orders fall in this range)', $percent); ?>
+                                </strong>
+                            </span>
+                            <?php
+                        } else {
+                            ?>
+                            <span>-</span>
+                            <?php
+                        } ?>
+                    </span>
+                </div>
+                <div>
+                    <?php echo __('The riskScore is given as a percentage, and as such it ranges from 0.01 to 100.00. For example,
+                    an order with a riskScore of 20.00 has a 20% chance of being fraudulent, while an order with a
+                    riskScore of 0.10 has a 0.1% chance of being fraudulent. To change threshold estimate ');
+                    ?>
+                    <a href="<?php echo $this->getUrl("adminhtml/system_config/edit/section/weltpixel_maxmind_config"); ?>"
+                       target="_blank"><?php echo __('click here'); ?></a>
+                    <br/>
+                    <?php if ($this->isChargeBackEnabled()) : ?>
+                        <?php echo __("To report current order as Chargeback click the") ?>
+                        <a href="#" id="report_chargeback"><?php echo __('Report Chargeback'); ?></a>
+                        <span class="chargeback-info <?php echo $chargebacKFlag ?>">(<?php echo __('Already Sent') ?>)</span>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="admin__page-section view-order-maxmind" style="float:right;">
+        <div class="section-title"><?php /* @escapeNotVerified */
+            echo __('MaxMind Account Information'); ?></div>
+        <div class="admin_content">
+            <table cellspacing="0" class="form-list">
+                <tbody>
+                <tr>
+                    <td class="label">
+                        <label>
+                            <?php /* @escapeNotVerified */
+                            echo __('Request Type'); ?>
+                        </label>
+                    </td>
+                    <td>
+                        <strong><?php /* @escapeNotVerified */
+                            echo __('Legacy API') ?></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label>
+                            <?php /* @escapeNotVerified */
+                            echo __('Credit Remaining (relative to this order)'); ?>
+                        </label>
+                    </td>
+                    <td>
+                        <strong><?php echo $this->getDisplayValue($maxmindData, 'queriesRemaining'); ?></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label><?php /* @escapeNotVerified */
+                            echo __('MaxMind ID'); ?></label>
+                    </td>
+                    <td>
+                        <strong><?php echo $this->getDisplayValue($maxmindData, 'maxmindID'); ?></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label><?php /* @escapeNotVerified */
+                            echo __('Error Message'); ?></label>
+                    </td>
+                    <td>
+                        <strong><?php echo $this->getDisplayValue($maxmindData, 'err'); ?></strong>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+<div class="maxmind-data">
+    <section class="admin__page-section view-order-maxmind collapsing" data-mage-init='{
+    "collapsible":{
+        "collapsible": true,
+        "openedState": "active",
+        "active": true
+    }}'>
+        <div data-role="title" class="section-title"><?php /* @escapeNotVerified */
+            echo __('IP Address Location Checks'); ?></div>
+        <div data-role="content" class="admin_content">
+            <table class="maxmind-table ip-check">
+                <tbody>
+                <tr>
+                    <td class="label">
+                        <label><?php /* @escapeNotVerified */
+                            echo __('Distance'); ?></label>
+                    </td>
+                    <td>
+                        <strong><?php echo $this->getDisplayValue($maxmindData, 'distance'); ?></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label><?php /* @escapeNotVerified */
+                            echo __('Country Match'); ?></label>
+                    </td>
+                    <?php $displayValue = $this->getDisplayValue($maxmindData, 'countryMatch'); ?>
+                    <td class="message message-<?php echo $this->getMessageErrorFlag($displayValue, 'yes') ?>">
+                        <strong><?php echo $displayValue ?></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label><?php /* @escapeNotVerified */
+                            echo __('Country Code'); ?></label>
+                    </td>
+                    <td>
+                        <strong><?php echo $this->getDisplayValue($maxmindData, 'countryCode'); ?></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label><?php /* @escapeNotVerified */
+                            echo __('High Risk Country'); ?></label>
+                    </td>
+                    <?php $displayValue = $this->getDisplayValue($maxmindData, 'highRiskCountry'); ?>
+                    <td class="message message-<?php echo $this->getMessageErrorFlag($displayValue, 'no') ?>">
+                        <strong><?php echo $displayValue ?></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label><?php /* @escapeNotVerified */
+                            echo __('Country Code'); ?></label>
+                    </td>
+                    <td>
+                        <strong><?php echo $this->getDisplayValue($maxmindData, 'countryCode'); ?></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label><?php /* @escapeNotVerified */
+                            echo __('IP Region'); ?></label>
+                    </td>
+                    <td>
+                        <strong><?php echo $this->getDisplayValue($maxmindData, 'ip_region'); ?></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label><?php /* @escapeNotVerified */
+                            echo __('IP City'); ?></label>
+                    </td>
+                    <td>
+                        <strong><?php echo $this->getDisplayValue($maxmindData, 'ip_city'); ?></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label><?php /* @escapeNotVerified */
+                            echo __('IP Latitude'); ?></label>
+                    </td>
+                    <td>
+                        <strong><?php echo $this->getDisplayValue($maxmindData, 'ip_latitude'); ?></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label><?php /* @escapeNotVerified */
+                            echo __('IP Longitude'); ?></label>
+                    </td>
+                    <td>
+                        <strong><?php echo $this->getDisplayValue($maxmindData, 'ip_longitude'); ?></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label><?php /* @escapeNotVerified */
+                            echo __('IP ISP'); ?></label>
+                    </td>
+                    <td>
+                        <strong><?php echo $this->getDisplayValue($maxmindData, 'ip_isp'); ?></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label><?php /* @escapeNotVerified */
+                            echo __('IP Organization'); ?></label>
+                    </td>
+                    <td>
+                        <strong><?php echo $this->getDisplayValue($maxmindData, 'ip_org'); ?></strong>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="admin__page-section view-order-maxmind collapsing" data-mage-init='{
+    "collapsible":{
+        "collapsible": true,
+        "openedState": "active",
+        "active": true
+    }}'>
+        <div data-role="title" class="section-title"><?php /* @escapeNotVerified */
+            echo __('Address and Phone Number Checks'); ?></div>
+        <div data-role="content" class="admin_content">
+            <table cellspacing="0" class="form-list">
+                <tbody>
+                <tr>
+                    <td class="label">
+                        <label><?php /* @escapeNotVerified */
+                            echo __('Customer Phone in Billing Location'); ?></label>
+                    </td>
+                    <?php $displayValue = $this->getDisplayValue($maxmindData, 'custPhoneInBillingLoc'); ?>
+                    <td class="message message-<?php echo $this->getMessageErrorFlag($displayValue, 'yes') ?>">
+                        <strong><?php echo $displayValue ?></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label>
+                            <?php /* @escapeNotVerified */
+                            echo __('Shipping Address is known mail drop'); ?>
+                        </label>
+                    </td>
+                    <?php $displayValue = $this->getDisplayValue($maxmindData, 'shipForward'); ?>
+                    <td class="message message-<?php echo $this->getMessageErrorFlag($displayValue, 'yes') ?>">
+                        <strong><?php echo $displayValue ?></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label><?php /* @escapeNotVerified */
+                            echo __('City and Postcode Match'); ?></label>
+                    </td>
+                    <?php $displayValue = $this->getDisplayValue($maxmindData, 'cityPostalMatch'); ?>
+                    <td class="message message-<?php echo $this->getMessageErrorFlag($displayValue, 'yes') ?>">
+                        <strong><?php echo $displayValue ?></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label><?php /* @escapeNotVerified */
+                            echo __('Shipping City and Postcode Match'); ?></label>
+                    </td>
+                    <?php $displayValue = $this->getDisplayValue($maxmindData, 'shipCityPostalMatch'); ?>
+                    <td class="message message-<?php echo $this->getMessageErrorFlag($displayValue, 'yes') ?>">
+                        <strong><?php echo $displayValue ?></strong>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section class="admin__page-section view-order-maxmind collapsing" data-mage-init='{
+    "collapsible":{
+        "collapsible": true,
+        "openedState": "active",
+        "active": true
+    }}'>
+        <div data-role="title" class="section-title"><?php /* @escapeNotVerified */
+            echo __('E-mail and Login Checks'); ?></div>
+        <div data-role="content" class="admin_content">
+            <table cellspacing="0" class="form-list">
+                <tbody>
+                <tr>
+                    <td class="label">
+                        <label><?php /* @escapeNotVerified */
+                            echo __('Free Email Address'); ?></label>
+                    </td>
+
+                    <?php $displayValue = $this->getDisplayValue($maxmindData, 'freeMail'); ?>
+                    <td class="message message-<?php echo $this->getMessageErrorFlag($displayValue, 'no') ?>">
+                        <strong><?php echo $displayValue ?></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label><?php /* @escapeNotVerified */
+                            echo __('High Risk Email'); ?></label>
+                    </td>
+                    <?php $displayValue = $this->getDisplayValue($maxmindData, 'carderEmail'); ?>
+                    <td class="message message-<?php echo $this->getMessageErrorFlag($displayValue, 'no') ?>">
+                        <strong><?php echo $displayValue ?></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label><?php /* @escapeNotVerified */
+                            echo __('High Risk Username'); ?></label>
+                    </td>
+                    <?php $displayValue = $this->getDisplayValue($maxmindData, 'highRiskUsername'); ?>
+                    <td class="message message-<?php echo $this->getMessageErrorFlag($displayValue, 'no') ?>">
+                        <strong><?php echo $displayValue ?></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label><?php /* @escapeNotVerified */
+                            echo __('High Risk Password'); ?></label>
+                    </td>
+                    <?php $displayValue = $this->getDisplayValue($maxmindData, 'highRiskPassword'); ?>
+                    <td class="message message-<?php echo $this->getMessageErrorFlag($displayValue, 'no') ?>">
+                        <strong><?php echo $displayValue ?></strong>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <section class="admin__page-section view-order-maxmind collapsing" data-mage-init='{
+    "collapsible":{
+        "collapsible": true,
+        "openedState": "active",
+        "active": true
+    }}'>
+        <div data-role="title" class="section-title"><?php /* @escapeNotVerified */
+            echo __('Proxy Checks'); ?></div>
+        <div data-role="content" class="admin_content">
+            <table cellspacing="0" class="form-list">
+                <tbody>
+                <tr>
+                    <td class="label">
+                        <label><?php /* @escapeNotVerified */
+                            echo __('Anonymous Proxy'); ?></label>
+                    </td>
+                    <?php $displayValue = $this->getDisplayValue($maxmindData, 'anonymousProxy'); ?>
+                    <td class="message message-<?php echo $this->getMessageErrorFlag($displayValue, 'no') ?>">
+                        <strong><?php echo $displayValue ?></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label><?php /* @escapeNotVerified */
+                            echo __('Proxy Score'); ?></label>
+                    </td>
+                    <td>
+                        <strong><?php echo $this->getDisplayValue($maxmindData, 'proxyScore'); ?></strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">
+                        <label><?php /* @escapeNotVerified */
+                            echo __('IP Corporate Proxy'); ?></label>
+                    </td>
+                    <?php $displayValue = $this->getDisplayValue($maxmindData, 'ip_corporateProxy'); ?>
+                    <td class="message message-<?php echo $this->getMessageErrorFlag($displayValue, 'no') ?>">
+                        <strong><?php echo $displayValue ?></strong>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>

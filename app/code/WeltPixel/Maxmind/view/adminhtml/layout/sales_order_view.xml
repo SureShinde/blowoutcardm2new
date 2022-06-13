@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="left">
+            <referenceContainer name="payment_additional_info">
+                <block class="WeltPixel\Maxmind\Block\Adminhtml\Order\View\Maxmindgrid" name="sales_order_view_maxmindgrid" template="order/view/maxmind.phtml" />
+            </referenceContainer>
+            <referenceBlock name="sales_order_tabs">
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">order_maxmind</argument>
+                    <argument name="block" xsi:type="string">WeltPixel\Maxmind\Block\Adminhtml\Order\View\Tab\Maxmind</argument>
+                </action>
+            </referenceBlock>
+        </referenceContainer>
+        <referenceContainer name="before.body.end">
+            <block class="WeltPixel\Maxmind\Block\Adminhtml\Order\View\Maxmindgrid" template="order/view/chargeback.phtml" name="maxmind.chargeback"/>
+        </referenceContainer>
+    </body>
+</page>

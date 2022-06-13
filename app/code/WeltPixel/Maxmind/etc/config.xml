@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <weltpixel_maxmind_config>
+            <general>
+                <enable>1</enable>
+                <api_version>1</api_version>
+                <enable_chargeback>0</enable_chargeback>
+                <enable_devicetracking>0</enable_devicetracking>
+                <score_threshold>5</score_threshold>
+                <min_order_amount></min_order_amount>
+                <force_ip></force_ip>
+                <ip_exceptions></ip_exceptions>
+                <hold_order>0</hold_order>
+                <send_email>0</send_email>
+                <email_address></email_address>
+                <email_sender_identity>support</email_sender_identity>
+                <email_subject>MaxMind Order Hold</email_subject>
+                <email_content>Order {{ORDERNUMBER}} received “On hold” status due to high risk score. Please review this order.</email_content>
+            </general>
+            <connection>
+                <license_key></license_key>
+                <disable_certificate_check>1</disable_certificate_check>
+                <api_server>https://minfraud.maxmind.com/app/ccv2r</api_server>
+            </connection>
+        </weltpixel_maxmind_config>
+    </default>
+</config>

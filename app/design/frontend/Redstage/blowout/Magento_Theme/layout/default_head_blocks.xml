@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+        <!-- Google Fonts -->
+        <link rel="stylesheet" type="text/css" src="https://fonts.googleapis.com/css2?family=Francois+One" src_type="url" />
+         <link rel="stylesheet" type="text/css" src="css/owlCarousel/owl.carousel.min.css" />
+
+
+         <!-- <link rel="stylesheet" type="text/css" src="css/nanoGallery/nanogallery.css" />
+         <link rel="stylesheet" type="text/css" src="css/nanoGallery/nanogallery_clean.css" />
+         <link rel="stylesheet" type="text/css" src="css/nanoGallery/nanogallery_light.css" />
+         <script src="js/nanoGallery/jquery.nanogallery.js" /> -->
+         <!-- <script src="js/nanoGallery/jquery.nanogallery.min.js" /> -->
+         <!-- <script src="js/nanoGallery/nano.js" /> -->
+         <!-- <link rel="stylesheet" type="text/css" src="css/nanoGallery/nanogallery2.min.css" />
+         <script src="js/nanoGallery/jquery.nanogallery2.min.js" /> -->
+
+    </head>
+</page>

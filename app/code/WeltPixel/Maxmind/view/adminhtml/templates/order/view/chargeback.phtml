@@ -1,0 +1,124 @@
+<?php if ($this->isChargebackEnabled()) : ?>
+<div id="chargeback-modal">
+    <div class="chargebackWrapper">
+        <form class="form form-chargeback"
+              action="<?= $block->getUrl('maxmind/chargeback/submit', ['_secure' =>  true]) ?>"
+              method="post"
+              id="form-chargeback"
+              data-mage-init='{"validation":{}}'>
+            <?php echo $block->getBlockHtml('formkey'); ?>
+            <input type="hidden" name="order_id" id="order_id" value="<?= $this->getOrder()->getId() ?>" />
+            <fieldset  class="fieldset">
+                <div class="field accordion">
+                    <label class="label" for="reported_ip_address"><span><?= __('Reported IP address'); ?></span></label>
+                    <div class="control config">
+                        <input type="text" name="reported_ip_address" id="reported_ip_address" value="<?= $this->getReportedIp() ?>" disabled="disabled" class="input-text admin__control-text" />
+                        <p class="comment"><?= __('Report the IP address of the customer placing the order.') ?></p>
+                    </div>
+                </div>
+                <div class="field accordion">
+                    <label class="label" for="chargeback_code"><span><?= __('Chargeback Code (optional)'); ?></span></label>
+                    <div class="control config">
+                        <input type="text" name="chargeback_code" id="chargeback_code" value="" class="input-text admin__control-text" />
+                        <p class="comment"><?= __('Insert chargeback code provided by your payment processor indicating the reason for the chargeback.') ?></p>
+                    </div>
+                </div>
+                <div class="field accordion">
+                    <label class="label" for="chargeback_tag">
+                        <span><?= __('Chargeback Tag (optional)'); ?></span>
+                    </label>
+                    <div class="control config">
+                        <select name="chargeback_tag" id="chargeback_tag" class="select admin__control-select">
+                            <option value=""><?= __('Not sending anything') ?></option>
+                            <option value="not_fraud"><?= __('Not Fraud') ?></option>
+                            <option value="suspected_fraud"><?= __('Suspected Fraud') ?></option>
+                            <option value="spam_or_abuse"><?= __('Spam or Abuse') ?></option>
+                            <option value="chargeback" selected="SELECTED"><?= __('Chargeback') ?></option>
+                        </select>
+                        <p class="comment"><?= __('Select the likelihood that a transaction may be fraudulent. Possible values: `not_fraud`, `suspected_fraud`, `spam_or_abuse`, or `chargeback`.') ?></p>
+                    </div>
+                </div>
+                <div class="actions-toolbar">
+                    <div class="primary button">
+                        <button type="submit" class="action submitchargeback primary" name="submitchargeback" id="submitchargeback">
+                            <span><?php echo __('Submit'); ?></span>
+                        </button>
+                    </div>
+                    <div class="secondary button">
+                        <button type="button" class="action cancelchargeback secondary" name="cancelchargeback" id="cancelchargeback">
+                            <span><?php echo __('Cancel'); ?></span>
+                        </button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal',
+            'Magento_Ui/js/modal/alert'
+        ],
+        function(
+            $,
+            modal,
+            alert
+        ) {
+            var options = {
+                type: 'popup',
+                modalClass: 'chargeback-popup-modal',
+                responsive: true,
+                innerScroll: true,
+                title: $.mage.__('Report Chargeback'),
+                buttons: []
+            };
+
+            $(document).ready(function() {
+                var chargeBackModal = modal(options, $('#chargeback-modal'));
+                $('body').on('click', "#report_chargeback",function(event){
+                    event.preventDefault();
+                    chargeBackModal.openModal();
+                    setTimeout(function() {
+                        $('.modals-overlay').css('z-index', '899');
+                    }, 500);
+                });
+
+                $('body').on('click', '#submitchargeback', function(event) {
+                    var form = $("#form-chargeback");
+                    var url = form.attr('action');
+                    $.ajax({
+                        url: url,
+                        showLoader: true,
+                        method: 'POST',
+                        data: form.serialize(),
+                        success: function (response) {
+                            alert({
+                                title: '',
+                                content: response.msg,
+                                actions: {
+                                    always: function(){
+                                        chargeBackModal.closeModal();
+                                    }
+                                }
+                            });
+                            if (response.sent) {
+                                $('.chargeback-info').removeClass('hidden');
+                            }
+                        }
+                    });
+                    event.preventDefault();
+                });
+
+                $('body').on('click',"#cancelchargeback", function () {
+                    chargeBackModal.closeModal();
+                });
+
+            });
+
+        }
+    );
+</script>
+<?php endif; ?>

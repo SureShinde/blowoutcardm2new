@@ -1,0 +1,30 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Category view template
+ *
+ * @var $block \Magento\Catalog\Block\Category\View
+ */
+?>
+<?php 
+	$_category  = $block->getCurrentCategory();
+    $_imgHtml   = '';
+    if ($_imgUrl = $_category->getImage()) {
+        $_imgHtml = '<div class="category-image"><img src="'
+            . $block->escapeUrl($_imgUrl)
+            . '" alt="'
+            . $block->escapeHtmlAttr($_category->getName())
+            . '" title="'
+            . $block->escapeHtmlAttr($_category->getName())
+            . '" class="image" /></div>';
+        echo $_imgHtml;
+    }
+?>
+<?php if (!$block->isContentMode() || $block->isMixedMode()) :?>
+    <?= $block->getProductListHtml() ?>
+<?php endif; ?>

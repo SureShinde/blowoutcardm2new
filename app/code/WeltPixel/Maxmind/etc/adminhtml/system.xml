@@ -1,0 +1,229 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="weltpixel_maxmind_config" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>MaxMind</label>
+            <tab>weltpixel</tab>
+            <resource>WeltPixel_Maxmind::maxmind_settings</resource>
+
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <comment><![CDATA[
+                    <div style='border: 2px solid #DDDDDD; padding:4px; margin:4px; background-color:white'>
+
+                      <ul style="padding:5px">
+                        <p>The minFraud service reduces chargebacks by identifying risky orders to be held for further review. The minFraud service is used to identify fraud in online e-commerce transactions.</p>
+                        <p>The riskScore, returned by the minFraud service, represents the likelihood that a given transaction is fraudulent. Merchants use the riskScore to determine whether to accept, reject, manually review, or submit transactions to complementary services for further screening.</p>
+                        <p>The riskScore is given as a percentage, and as such it ranges from 0.01 to 100.00. For example, an order with a riskScore of 20.00 has a 20% chance of being fraudulent, while an order with a riskScore of 0.10 has a 0.1% chance of being fraudulent.</p>
+                        <p>The riskScore is based on a statistical analysis of the following: reputations and real-time monitoring (IP addresses, Devices, Email addresses), Geolocation checks, Proxy detection, Bank Identification Number checks, The minFraud Network.</p>
+                        <p>There is no single recommended set of riskScore values to use for deciding whether to accept, reject, manually review, or submit transactions to complementary services for analysis. In determining what thresholds to set, you should consider the costs of chargebacks and lost goods, the cost of manual review, the cost of complementary services, and the cost of potentially rejecting good orders</p>
+                        <p><strong>A recommended strategy is to at first only automatically accept orders under a low riskScore (e.g., 3.00), only automatically reject orders above a high riskScore (e.g., 70.00), and manually review all other transactions. After monitoring the riskScores received for the manually reviewed transactions, you can adjust the thresholds appropriately to reduce the amount of manual review required.</strong></p>
+                        <p>Below is the distribution of riskScores returned by the minFraud service across all users. You can use this data to estimate the number of orders that will be approved, rejected, or held back for review given the thresholds you set. Please note that the distribution of riskScores you observe may differ.</p>
+                      </ul>
+
+                      <table class="table table-bordered table-striped" style="-moz-border-bottom-colors: none;-moz-border-left-colors: none;-moz-border-right-colors: none;-moz-border-top-colors: none;border-collapse: separate;border-color: #DDDDDD #DDDDDD #DDDDDD #DDDDDD;border-image: none;border-radius: 4px 4px 4px 4px;border-style: solid solid solid solid;border-width: 1px 1px 1px 1px;line-height: 20px;border-spacing: 0;width: 480px;">
+                        <thead>
+                            <tr>
+                                <th style="border-top-left-radius: 4px; padding: 8px;text-align: left;">riskScore range</th>
+                                <th style="border-left: 1px solid #DDDDDD; padding: 8px;text-align: left;">Percent of orders in range</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr >
+                                <td style="padding: 8px;text-align: left;border-top: 1px solid #DDDDDD;background-color: #D9DDD2;">0.10 - 4.99</td>
+                                <td style="border-left: 1px solid #DDDDDD; padding: 8px;text-align: left;border-top: 1px solid #DDDDDD;background-color: #D9DDD2;">90%</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px;text-align: left;border-top: 1px solid #DDDDDD;">5.00 - 9.99</td>
+                                <td style="border-left: 1px solid #DDDDDD; padding: 8px;text-align: left;border-top: 1px solid #DDDDDD;">5%</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px;text-align: left;border-top: 1px solid #DDDDDD;background-color: #D9DDD2;">10.00 - 29.99</td>
+                                <td style="border-left: 1px solid #DDDDDD; padding: 8px;text-align: left;border-top: 1px solid #DDDDDD;background-color: #D9DDD2;">3%</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px;text-align: left;border-top: 1px solid #DDDDDD;">30.00 - 99.99</td>
+                                <td style="border-left: 1px solid #DDDDDD; padding: 8px;text-align: left;border-top: 1px solid #DDDDDD;">2%</td>
+                            </tr>
+                        </tbody>
+                      </table>
+                    </div> ]]>
+                </comment>
+
+                <label>General Configuration</label>
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable/disable the MaxMind module.</comment>
+                </field>
+                <field id="enable_for_payment" translate="label" type="multiselect" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable for Payment</label>
+                    <source_model>WeltPixel\Maxmind\Model\Config\Source\Payments</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="api_version" translate="label" type="select" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>minFraud API Version</label>
+                    <source_model>WeltPixel\Maxmind\Model\Config\Source\ApiVersion</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <comment>Select the right MaxMind minFraud Service for your business. For more details about the available services, check out the official <a href="https://www.maxmind.com/en/solutions/minfraud-services" target="blank">MaxMind minFraud Service</a> page.</comment>
+                </field>
+                <field id="enable_chargeback" translate="label" type="select" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Chargeback Reporting</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <comment>If Enabled, you can report Chargebacks to MaxMind. Go to an order and click on Chargeback to report chargeback.</comment>
+                </field>
+                <field id="enable_devicetracking" translate="label" type="select" sortOrder="17" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Device Tracking</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <comment><![CDATA[If Enabled, Maxmind Device tracking javascript snippet is added to the pages. More info on <a target="_blank" href="https://dev.maxmind.com/minfraud/device/">Device Tracking Add-on for minFraud Services</a>.]]></comment>
+                </field>
+                <field id="enable_devicetracking_pages" translate="label" type="multiselect" sortOrder="18" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Initialize Device Tracking Script on</label>
+                    <source_model>WeltPixel\Maxmind\Model\Config\Source\DeviceTrackingOn</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                        <field id="enable_devicetracking">1</field>
+                    </depends>
+                    <comment>On checkout pages is enabled by default.</comment>
+                </field>
+                <field id="score_threshold" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Score Threshold</label>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <comment>Set the risk score threshold. All orders which receive a MaxMind Score above this threshold will appear in red (in the Order Grid and on the Order Page) in order to get your attention.</comment>
+                </field>
+                <field id="hold_order" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Hold Order</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <comment>Allows you to place on hold all orders that have been scored above the Score Threshold in order to allow you to decide upon the next steps.</comment>
+                </field>
+                <field id="send_email" translate="label" type="select" sortOrder="31" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send email when order status is 'On Hold'</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                        <field id="hold_order">1</field>
+                    </depends>
+                </field>
+                <field id="email_sender_identity" translate="label" type="select" sortOrder="32" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Notification Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                        <field id="send_email">1</field>
+                        <field id="hold_order">1</field>
+                    </depends>
+                </field>
+                <field id="email_address" translate="label" type="text" sortOrder="34" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Address For Notification</label>
+                    <depends>
+                        <field id="enable">1</field>
+                        <field id="send_email">1</field>
+                        <field id="hold_order">1</field>
+                    </depends>
+                    <validate>required-entry</validate>
+                    <comment>Email address for notifications. Comma-separated.</comment>
+                </field>
+                <field id="email_subject" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Subject</label>
+                    <depends>
+                        <field id="enable">1</field>
+                        <field id="send_email">1</field>
+                        <field id="hold_order">1</field>
+                    </depends>
+                    <comment>Customize email subject.</comment>
+                </field>
+                <field id="email_content" translate="label" type="textarea" sortOrder="36" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Content</label>
+                    <depends>
+                        <field id="enable">1</field>
+                        <field id="send_email">1</field>
+                        <field id="hold_order">1</field>
+                    </depends>
+                    <comment><![CDATA[Email will contain simple information as in example below, and can be extended with additional info if you consider it necessary. {{ORDERNUMBER}} will be replaced with the real order number.]]></comment>
+                </field>
+                <field id="force_ip" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Force IP</label>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <comment>For debug only, this IP will overwrite the order IP address. Leave this field blank when you are using the module on a live store. If you are testing on a local installation or in an environment using a private IP, make sure to enable this option and add here a Public IP address in order to be able to use MaxMind Services on local environments.</comment>
+                </field>
+                <field id="ip_exceptions" translate="label" type="textarea" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>IP Exceptions</label>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <comment>Add IP's separated by comma - Orders placed from this IP's will not be checked for possible fraud.</comment>
+                </field>
+                <field id="min_order_amount" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Minimum Order Amount</label>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                    <comment>Minimum amount for order to be checked for possible fraud.</comment>
+                </field>
+            </group>
+
+            <group id="connection" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Connection Configuration</label>
+                <field id="api_server" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Api Hostname </label>
+                    <source_model>WeltPixel\Maxmind\Model\Config\Source\Api</source_model>
+                    <depends>
+                        <field id="weltpixel_maxmind_config/general/enable">1</field>
+                        <field id="weltpixel_maxmind_config/general/api_version">1</field>
+                    </depends>
+                    <comment>MaxMind automatically picks the data center geographically closest to you. In some cases, this data center may not be the one that provides you with the best service. You can explicitly try the following hostnames to see which one provides the best performance for you.</comment>
+                </field>
+                <field id="api_server_endpoint" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>API Hostname </label>
+                    <source_model>WeltPixel\Maxmind\Model\Config\Source\ApiEndpoint</source_model>
+                    <depends>
+                        <field id="weltpixel_maxmind_config/general/enable">1</field>
+                        <field id="weltpixel_maxmind_config/general/api_version" separator="|">2|3|4</field>
+                    </depends>
+                    <comment>MaxMind automatically picks the data center geographically closest to you. In some cases, this data center may not be the one that provides you with the best service. You can explicitly try the following hostnames to see which one provides the best performance for you.</comment>
+                </field>
+                <field id="license_key" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>MaxMind License Key</label>
+                    <depends>
+                        <field id="weltpixel_maxmind_config/general/enable">1</field>
+                    </depends>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="account_id" translate="label" type="text" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>MaxMind Account Id</label>
+                    <depends>
+                        <field id="weltpixel_maxmind_config/general/enable">1</field>
+                        <field id="weltpixel_maxmind_config/general/api_version" separator="|">2|3|4</field>
+                    </depends>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="disable_certificate_check" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Disable cURL Server Certificate Check</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="weltpixel_maxmind_config/general/enable">1</field>
+                        <field id="weltpixel_maxmind_config/general/api_version">1</field>
+                    </depends>
+                    <comment>For temporary server certificate issue - Set cURL to accept any server(peer) certificate.</comment>
+                </field>
+            </group>
+
+        </section>
+    </system>
+</config>

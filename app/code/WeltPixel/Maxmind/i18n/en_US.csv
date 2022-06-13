@@ -1,0 +1,206 @@
+"We can't get the order instance right now.","We can't get the order instance right now."
+"MaxMind Fraud Detection","MaxMind Fraud Detection"
+"Order MaxMind","Order MaxMind"
+Yes,Yes
+No,No
+"Maxmind License key not set.","Maxmind License key not set."
+"Maxmind Account Id is not set.","Maxmind Account Id is not set."
+"Request Api Json Encoding Error","Request Api Json Encoding Error"
+"Api Request Error ","Api Request Error "
+"Report Chargeback sent successfully","Report Chargeback sent successfully"
+"No riskScore or server response.","No riskScore or server response."
+"Automatically Detect","Automatically Detect"
+US-east,US-east
+US-west,US-west
+EU-west,EU-west
+"US East, Virginia, US","US East, Virginia, US"
+"US West, San Jose, California, US","US West, San Jose, California, US"
+"EU West, London, UK","EU West, London, UK"
+"MaxMind minFraud Legacy","MaxMind minFraud Legacy"
+"MaxMind minFraud Score","MaxMind minFraud Score"
+"MaxMind minFraud Insight","MaxMind minFraud Insight"
+"MaxMind minFraud Factors","MaxMind minFraud Factors"
+"Reported IP address","Reported IP address"
+"Report the IP address of the customer placing the order.","Report the IP address of the customer placing the order."
+"Chargeback Code (optional)","Chargeback Code (optional)"
+"Insert chargeback code provided by your payment processor indicating the reason for the chargeback.","Insert chargeback code provided by your payment processor indicating the reason for the chargeback."
+"Chargeback Tag (optional)","Chargeback Tag (optional)"
+"Not sending anything","Not sending anything"
+"Not Fraud","Not Fraud"
+"Suspected Fraud","Suspected Fraud"
+"Spam or Abuse","Spam or Abuse"
+Chargeback,Chargeback
+"Select the likelihood that a transaction may be fraudulent. Possible values: `not_fraud`, `suspected_fraud`, `spam_or_abuse`, or `chargeback`.","Select the likelihood that a transaction may be fraudulent. Possible values: `not_fraud`, `suspected_fraud`, `spam_or_abuse`, or `chargeback`."
+Submit,Submit
+Cancel,Cancel
+"Risk Score Estimate:","Risk Score Estimate:"
+"(Approximately %1 of all orders fall in this range)","(Approximately %1 of all orders fall in this range)"
+N/A,N/A
+"MaxMind Credit Remaining:","MaxMind Credit Remaining:"
+"Purchase Additional Credit","Purchase Additional Credit"
+"Maxmind Fraud Report Data","Maxmind Fraud Report Data"
+"Risk Score","Risk Score"
+"Risk Score Estimate","Risk Score Estimate"
+"The riskScore is given as a percentage, and as such it ranges from 0.01 to 100.00. For example,
+                    an order with a riskScore of 20.00 has a 20% chance of being fraudulent, while an order with a
+                    riskScore of 0.10 has a 0.1% chance of being fraudulent. To change threshold estimate ","The riskScore is given as a percentage, and as such it ranges from 0.01 to 100.00. For example,
+                    an order with a riskScore of 20.00 has a 20% chance of being fraudulent, while an order with a
+                    riskScore of 0.10 has a 0.1% chance of being fraudulent. To change threshold estimate "
+"click here","click here"
+"To report current order as Chargeback click the","To report current order as Chargeback click the"
+"Report Chargeback","Report Chargeback"
+"Already Sent","Already Sent"
+"MaxMind Account Information","MaxMind Account Information"
+"Request Type","Request Type"
+Factors,Factors
+"minFraud Id","minFraud Id"
+"Credit Remaining (relative to this order)","Credit Remaining (relative to this order)"
+"Funds Remaining (relative to this order)","Funds Remaining (relative to this order)"
+"Response Warnings","Response Warnings"
+"Warning Message(s)","Warning Message(s)"
+"minFraud Factors Outputs","minFraud Factors Outputs"
+"IP Address Checks","IP Address Checks"
+"IP Risk Score","IP Risk Score"
+City,City
+Confidence,Confidence
+"Geoname Id","Geoname Id"
+Name,Name
+Continent,Continent
+Code,Code
+Country,Country
+"High risk country","High risk country"
+"ISO Code","ISO Code"
+"Country is in the EU","Country is in the EU"
+Location,Location
+"Local date/time of IP address","Local date/time of IP address"
+"Accuracy Radius","Accuracy Radius"
+Latitude,Latitude
+Longitude,Longitude
+"Time zone","Time zone"
+Traits,Traits
+"Autonomous System Number","Autonomous System Number"
+"Autonomous System Organization","Autonomous System Organization"
+Domain,Domain
+"IP Address","IP Address"
+"Is Anonymous","Is Anonymous"
+"Is Anonymous Proxy","Is Anonymous Proxy"
+"Is Anonymous Vpn","Is Anonymous Vpn"
+"Is Hosting Provider","Is Hosting Provider"
+"Is Public Proxy","Is Public Proxy"
+"Is Satellite Provider","Is Satellite Provider"
+"Is Tor Exit Node","Is Tor Exit Node"
+ISP,ISP
+Network,Network
+Organization,Organization
+"Static IP Score","Static IP Score"
+"User Count","User Count"
+"User Type","User Type"
+"Email Checks","Email Checks"
+"Free email","Free email"
+"Carder Email","Carder Email"
+"Email first seen","Email first seen"
+"Billing Address Checks","Billing Address Checks"
+"Billing postal code is in the billing city","Billing postal code is in the billing city"
+"Billing postal code latitude","Billing postal code latitude"
+"Billing postal code longitude","Billing postal code longitude"
+"Billing postal code to IP address distance","Billing postal code to IP address distance"
+"Billing address is in IP country","Billing address is in IP country"
+"Shipping Address Checks","Shipping Address Checks"
+"Shipping postal code is in the shipping city","Shipping postal code is in the shipping city"
+"Shipping postal code latitude","Shipping postal code latitude"
+"Shipping postal code longitude","Shipping postal code longitude"
+"Shipping postal code to IP address distance","Shipping postal code to IP address distance"
+"Shipping address is in IP country","Shipping address is in IP country"
+"High risk shipping address","High risk shipping address"
+"Shipping address to billing address distance","Shipping address to billing address distance"
+"Subscores Checks","Subscores Checks"
+"Email Address","Email Address"
+"Browser Risk","Browser Risk"
+"Order Amount","Order Amount"
+"Email Domain","Email Domain"
+"Country Mismatch","Country Mismatch"
+"Billing Address Distance","Billing Address Distance"
+"Time Of Day","Time Of Day"
+"Billing Address","Billing Address"
+Phone,Phone
+"Shipping Address Distance To Ip Location","Shipping Address Distance To Ip Location"
+"minFraud Inputs","minFraud Inputs"
+Billing,Billing
+Company,Company
+"Address 1","Address 1"
+"Address 2","Address 2"
+State/region,State/region
+"Postal code","Postal code"
+Shipping,Shipping
+Order,Order
+Amount,Amount
+Currency,Currency
+"Shopping cart","Shopping cart"
+"Item ID","Item ID"
+Category,Category
+Price,Price
+Quantity,Quantity
+"Customer account","Customer account"
+"Email address","Email address"
+Event,Event
+"Merchant transaction ID","Merchant transaction ID"
+Timestamp,Timestamp
+"Transaction type","Transaction type"
+"Session ID","Session ID"
+"Transaction Linking","Transaction Linking"
+"User-agent HTTP header","User-agent HTTP header"
+"Accept-language header	","Accept-language header	"
+"MaxMind Fraud Report Data","MaxMind Fraud Report Data"
+Insights,Insights
+"minFraud Insights Outputs","minFraud Insights Outputs"
+"Free Email","Free Email"
+"Legacy API","Legacy API"
+"MaxMind ID","MaxMind ID"
+"Error Message","Error Message"
+"IP Address Location Checks","IP Address Location Checks"
+Distance,Distance
+"Country Match","Country Match"
+"Country Code","Country Code"
+"High Risk Country","High Risk Country"
+"IP Region","IP Region"
+"IP City","IP City"
+"IP Latitude","IP Latitude"
+"IP Longitude","IP Longitude"
+"IP ISP","IP ISP"
+"IP Organization","IP Organization"
+"Address and Phone Number Checks","Address and Phone Number Checks"
+"Customer Phone in Billing Location","Customer Phone in Billing Location"
+"Shipping Address is known mail drop","Shipping Address is known mail drop"
+"City and Postcode Match","City and Postcode Match"
+"Shipping City and Postcode Match","Shipping City and Postcode Match"
+"E-mail and Login Checks","E-mail and Login Checks"
+"Free Email Address","Free Email Address"
+"High Risk Email","High Risk Email"
+"High Risk Username","High Risk Username"
+"High Risk Password","High Risk Password"
+"Proxy Checks","Proxy Checks"
+"Anonymous Proxy","Anonymous Proxy"
+"Proxy Score","Proxy Score"
+"IP Corporate Proxy","IP Corporate Proxy"
+Score,Score
+"minFraud Score Outputs","minFraud Score Outputs"
+MaxMind,MaxMind
+"General Configuration","General Configuration"
+Enable,Enable
+"minFraud API Version","minFraud API Version"
+"Enable Chargeback Reporting","Enable Chargeback Reporting"
+"Score Threshold","Score Threshold"
+"Hold Order","Hold Order"
+"Send email when order status is 'On Hold'","Send email when order status is 'On Hold'"
+"Email Subject","Email Subject"
+"Email Content","Email Content"
+"Force IP","Force IP"
+"IP Exceptions","IP Exceptions"
+"Minimum Order Amount","Minimum Order Amount"
+"Connection Configuration","Connection Configuration"
+"Api Hostname","Api Hostname"
+"API Hostname","API Hostname"
+"MaxMind License Key","MaxMind License Key"
+"MaxMind Account Id","MaxMind Account Id"
+"Disable cURL Server Certificate Check","Disable cURL Server Certificate Check"
+"Fraud Estimation","Fraud Estimation"
